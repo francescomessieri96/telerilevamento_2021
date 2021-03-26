@@ -61,7 +61,7 @@ plot(p224r63_2011$B1_sre,col=cl3)
 plot(p224r63_2011$B2_sre,col=cl3)
 plot(p224r63_2011$B3_sre,col=cl3)
 plot(p224r63_2011$B4_sre,col=cl3)
-# ora facico una colorRampalette per ogi banda con i colori che voglio
+# ora facico una colorRampalette per ogni banda con i colori che voglio
 par(mfrow=c(2,2))
 clb<- colorRampPalette(c("blue", "dark blue", "light blue")) (300)
 plot(p224r63_2011$B1_sre,col=clb)
@@ -72,7 +72,49 @@ plot(p224r63_2011$B3_sre,col=clr)
 clnir<- colorRampPalette(c( "pink", "orange", "yellow")) (300)
 plot(p224r63_2011$B4_sre,col=clnir)
 
+# 26/03/2021 --> plot in RGB
+setwd("C:/lab/")
+#funzione che va aprendere l'immagine dalla certella sul pc
+library(raster)
+p224r63_2011<-brick("p224r63_2011_masked.grd")
+#per sapere tutte le informazioni riguardanti l'immagine si mette su una riga il nome del file, in questo caso: p224r63_2011 
+# in particolare in Landsat si hanno le seguenti bande: 
+# B1= blu
+# B2= VERDE
+# B3= rosso
+# B4= infrarosso vicini (NIR)
+# B5= infrarosso medio (MIR)
+# B6= infrarosso termico (TIR)
+# B7= altra banda per MIR
 
+#per fare plot RGB con funzione stretch:
+plotRGB(p224r63_2011,r=3, g=2, b=1, stretch="lin")
+# per usare anche l'infrarosso ho fatto slittare le bande, e ho inserito la 4 banda e tolto la prima, abbiamo montanto nel red l'infrarosso (4 banda)
+plotRGB(p224r63_2011, r=4, g=2, b=1, stretch="lin")
+# invertiamo la banda 4 con la 3:
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="lin")
+# ora vediamo l'infrarosso nel posto del blu all'interno della funzione plotRGB
+plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="Lin")
+#per fare il plot delle immagini che ho appena fatto
+par(mfrow=c(2,2))
+plot(plotRGB(p224r63_2011,r=3, g=2, b=1, stretch="lin"))
+plot(plotRGB(p224r63_2011, r=4, g=2, b=1, stretch="lin"))
+plot(plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="lin"))
+plot(plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="Lin"))
+# per fare PDF di ciò che ho appena fatto
+PDF(pdf_prova)
+par(mfrow=c(2,2))
+plotRGB(p224r63_2011,r=3, g=2, b=1, stretch="lin"))
+plotRGB(p224r63_2011, r=4, g=2, b=1, stretch="lin"))
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="lin"))
+plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="lin"))
+dev.off()
 
+# ora vediamo l'immagine con uno stretch hist
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="hist")
 
-
+#par con colori naturali, colori falsi e colori falsi con histogram stretch
+par(mfrow=c(3,1))
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="hist")
