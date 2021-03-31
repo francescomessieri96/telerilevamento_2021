@@ -32,6 +32,7 @@ p224r63_2011<-brick("p224r63_2011_masked.grd")
 # B5= infrarosso medio (MIR)
 # B6= infrarosso termico (TIR)
 # B7= altra banda per MIR
+
 colorRampPalette(c("magenta", "pink", "orange", "yellow")) (100)
 cl3<- colorRampPalette(c("magenta", "pink", "orange", "yellow")) (100)
 plot(p224r63_2011,col=cl3)
@@ -118,3 +119,40 @@ par(mfrow=c(3,1))
 plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="hist")
+
+#31/03/2021
+setwd("C:/lab/")
+library(raster)
+p224r63_1988<-brick("p224r63_1988_masked.grd")
+p224r63_2011<-brick("p224r63_2011_masked.grd")
+#oggi facciamo un set multitemporale con una stessa immagine, una dell'1988 e una del 2011
+#si ricorda che la funzione "brick" importa un intero set di dati (di bande nel nostro caso) crando il blocco di raster tutti insieme
+#ora plot dell'intera immagine '88: plottaggio di tutte le bande del satellite come abbiamo fatto per quella del  2011
+plot(p224r63_1988)
+#per colori naturali
+plotRGB(p224r63_1988, r=3, g=2, b=1, stretch="lin")
+#ora plottiamo in RGB utlizzando l'infrarosso
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="lin")
+#multiframe di una stessa immagine, vista nel 1988 e nel 2011, montanta secondo schema RGB con infrarosso nella banda del rosso per osservarne la vegetazione
+#sono stati fatti due plot per stessa immagine una con "hist" e una con "lin"
+par(mfrow=c(2,2))
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="lin")
+plotRGB(p224r63_2011, r=4, g=2, b=1, stretch="lin")
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="hist")
+plotRGB(p224r63_2011, r=4, g=2, b=1, stretch="hist")
+#per farne un pdf
+pdf("il_mio_primo_pdf_con_R.pdf")
+par(mfrow=c(2,2))
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="hist")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist")
+dev.off()
+ 
+
+
+
+
+
+
+
