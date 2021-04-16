@@ -4,10 +4,12 @@
 library(raster)
 #install.packages("ncdf4")
 setwd("C:/lab/")
+library(ncdf4)
 #dato che carico un solo layer uso la funzione raster non la funzione brick
 NDVI<-raster("c_gls_NDVI_202006110000_GLOBE_PROBAV_V2.2.1.nc")
+LAI<-raster("c_gls_LAI_202004030000_GLOBE_PROBAV_V1.5.1.nc")
 #cambio la scala di colri
-cl <-colorRampPalette(c("yellow", "green", "dark green"))(255)
+cl <-colorRampPalette(c("yellow", "green", "dark green"))(100)
 plot(NDVI, col=cl)
 #ricampioniamo l'immagine, resampling
 NDVIres<-aggregate(NDVI, fact=100)
@@ -19,3 +21,5 @@ install.packages("knitr")
 install.packages("RStoolbox")
 library(knitr)
 library(RStoolbox)
+#funzione stitch: utilizzando uno script di R, lo slaviamo in un qualsiasi software.
+require (knitr)
