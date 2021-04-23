@@ -33,6 +33,7 @@ plotRGB(gc, r=1, g=2, b=3, stretch="hist")
 #noi siamo interessati alla mappa
 gcc<- unsuperClass(gc, nClasses=2)
 
+
 plot(gcc$map)
 gcc4 <-unsuperClass(gc, nClasses=4)
 plot(gcc4$map)
