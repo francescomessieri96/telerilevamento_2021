@@ -17,3 +17,22 @@ plot(soc$map)
 soc2 <- unsuperClass(so, nClasses =20)
 soc2c<-colorRampPalette(c('yellow','red','black'))(100)
 plot(soc2c)
+
+#23/04/2021 GRAN CANYON
+library(raster)
+library(RStoolbox)
+#stet della working directory
+setwd("C:/lab/")
+#usiamo brick perchè carichiamo un'immagine che è già un pacchetto di layer
+gc <- brick("dolansprings_oli_2013088_canyon_lrg.jpg")
+#plotto l'immagine RGB montando gli strati come il rosso nel primo, il verde nel secondo, il blu nel terzo. 
+#faccio lo stretch per visualizzare tutti i colori possibili (da 0 a 255 bit).
+#posso  usare uno stretch lineare o uno stretch istogrammato che permetto una miglior risoluzione
+plotRGB(gc, r=1, g=2, b=3, stretch="hist")
+# ora usiamo unsperClass: facciamo un modello di classificazione, quidni informazioni su classi e mappa
+#noi siamo interessati alla mappa
+gcc<- unsuperClass(gc, nClasses=2)
+
+plot(gcc$map)
+gcc4 <-unsuperClass(gc, nClasses=4)
+plot(gcc4$map)
