@@ -2,6 +2,8 @@
 setwd("C:/lab/")
 library(raster)
 library(RSToolbox)
+#for the worldwide NDVI:
+library(rasterdiv)
 defor1 <- brick("defor1.jpg")
 defor2 <- brick("defor2.jpg")
 par(mfrow=c(2,1))
@@ -48,6 +50,13 @@ plot(ndvi2, col=cl, main= "NDVI at time 2")
 vi <- spectralIndices(defor1, green = 3, red = 2, nir = 1)
 plot(vi, col=cl)
 
+#5/05/2021
+# world wild NDVI
+plot(copNDVI)
+#ora riclassifichiamo mostrando come non valori quelli relativi all'acqua
+reclassify(copNDVI, cbind(253:255, NA))
+#con il pacchetto rasterVis
+levelplot(copNDVI)
 
 
 
