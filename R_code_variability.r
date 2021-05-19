@@ -32,3 +32,5 @@ plot(NDVI_3_05)
 #usiamo quindi RStoolbox, in particolare rasterPCA
 sentpca<- rasterPCA(sent)
 plot(sentpca$map)
+
+
