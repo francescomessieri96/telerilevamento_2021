@@ -33,4 +33,33 @@ plot(NDVI_3_05)
 sentpca<- rasterPCA(sent)
 plot(sentpca$map)
 
+21/05/21
+library(RStoolbox)
+library(raster)
+#per fare plot
+library(ggplot2)
+#per plottare insisme tanti plot ottenuti con ggplot
+library(gridExtra)
+#viridis serve per colorare i plot di ggplot in modo automatico
+install.packages("viridis")
+library(viridis)
+setwd("C:/lab/")
+#carichiamo l'immagine
+sent<-brick("sentinel_similau.png")
+#faccio la pca dell'immagine
+sentpca<- rasterPCA(sent)
+#plotto le immagini della pca
+plot(sentpca$map)
+#ora vogliio fare la deviazione standard di uno strato, per esmepio la pc1
+#prima di tutto chiamo l'oggetto di cui voglio fare da deviaizone standard con la finestra mobile, cioè pc1
+pc1<- sentpca$map$PC1
+pc1sd<- focal(pc1, w=matrix(1/25, nrow=5, ncol=5), fun=sd)
+clsd<- colorRampPalette(c("blue", "green", "pink", "magenta", "orange"))(100)
+plot(pc1sd, col=clsd)
+#utlizziamo ggplot
+ggplot()
+geom_raster(pc1sd, mapping=aes(x=x, y=y, fill=pc1sd))
+
+
+
 
